@@ -82,6 +82,10 @@ const NewQuote = styled.div`
 const Credit = styled.div`
   color: white;
   margin-top: 20px;
+  
+  & a {
+    color: white;
+  }
 `;
 
 const quotes = [
@@ -146,7 +150,7 @@ class App extends Component {
                         <NewQuoteButton>New quote</NewQuoteButton>
                     </NewQuote>
                 </Box>
-                <Credit>By Steve Mu</Credit>
+                <Credit>By Steve Mu | <a href="https://steve-random-quote-machine.herokuapp.com/">Source Code</a></Credit>
             </Container>
 
         );
