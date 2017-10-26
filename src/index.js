@@ -150,7 +150,7 @@ class App extends Component {
                         <NewQuoteButton>New quote</NewQuoteButton>
                     </NewQuote>
                 </Box>
-                <Credit>By Steve Mu | <a href="https://steve-random-quote-machine.herokuapp.com/">Source Code</a></Credit>
+                <Credit>By Steve Mu | <a href="https://github.com/stevemu/fcc-random-quote-machine-solution">Source Code</a></Credit>
             </Container>
 
         );
