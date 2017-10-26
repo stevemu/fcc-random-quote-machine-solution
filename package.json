@@ -1,0 +1,19 @@
+{
+  "name": "random-quote-machine",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "octicons": "^7.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-scripts": "1.0.14",
+    "styled-components": "^2.2.2",
+    "webfontloader": "^1.6.28"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
