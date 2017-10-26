@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import registerServiceWorker from './registerServiceWorker';
 import "./css.css";
 import WebFont from "webfontloader";
-
 
 WebFont.load({
     google: {
@@ -22,6 +21,30 @@ const Container = styled.div`
   max-height: 100%;
   min-height: 100vh;
   padding: 20px;
+  animation-duration: 1s;
+  animation-name: goIn;
+  
+  @keyframes goIn {
+    from {
+      opacity: 0.1;
+    }
+    
+    to {
+      opacity: 1;
+    }
+  }
+  
+   @keyframes goOut {
+    from {
+      opacity: 1;
+    }
+    
+    to {
+      opacity: 0;
+    }
+  }
+  
+  
 `;
 
 const Box = styled.div`
@@ -112,36 +135,47 @@ const colors = [
 ];
 
 const QuoteLeft = () => {
-  return <i style={{marginRight: "10px"}} className="fa fa-quote-left" aria-hidden="true"></i>;
+    return <i style={{marginRight: "10px"}} className="fa fa-quote-left" aria-hidden="true"></i>;
 };
 
 class App extends Component {
 
     state = {
-        index: 0
+        index: 0,
+        animationName: "goIn",
+        opacity: 1
     };
 
     newQuote = () => {
         const previousIndex = this.state.index;
-        let newIndex = Math.floor(Math.random() * 3);
+        let newIndex = Math.floor(Math.random() * quotes.length);
         while (previousIndex === newIndex) {
-            newIndex = Math.floor(Math.random() * 3);
+            newIndex = Math.floor(Math.random() * quotes.length);
         }
 
-        this.setState({index: newIndex});
+        // animate go out
+        // after 1 second, go in and show new text
+
+        this.setState({animationName: "goOut", opacity: 0});
+        setTimeout(() => {
+            this.setState({animationName: "goIn", opacity: 1});
+            this.setState({index: newIndex});
+        }, 1000);
+
     };
 
     render() {
         const quote = quotes[this.state.index];
         const {text, by} = quote;
         const color = colors[this.state.index];
+        const opacity = this.state.opacity;
 
         const twitterLink = `https://twitter.com/intent/tweet?text=${text} -- ${by}`;
 
         return (
-            <Container style={{backgroundColor: color}}>
+            <Container style={{opacity, backgroundColor: color, animationName: this.state.animationName}}>
                 <Box>
-                    <Quote><QuoteLeft />{text}</Quote>
+                    <Quote><QuoteLeft/>{text}</Quote>
                     <Author>- {by}</Author>
                     <Social>
                         <SocialButton
@@ -151,8 +185,8 @@ class App extends Component {
                             <span className="typcn typcn-social-twitter"></span>
                         </SocialButton>
                         {/*<SocialButton*/}
-                            {/*style={{marginRight: "10px"}}>*/}
-                            {/*<span className="typcn typcn-social-tumbler"></span>*/}
+                        {/*style={{marginRight: "10px"}}>*/}
+                        {/*<span className="typcn typcn-social-tumbler"></span>*/}
                         {/*</SocialButton>*/}
                     </Social>
                     <NewQuote
@@ -161,7 +195,8 @@ class App extends Component {
                         <NewQuoteButton style={{backgroundColor: color}}>New quote</NewQuoteButton>
                     </NewQuote>
                 </Box>
-                <Credit>By Steve Mu | <a href="https://github.com/stevemu/fcc-random-quote-machine-solution">Source Code</a></Credit>
+                <Credit>By Steve Mu | <a href="https://github.com/stevemu/fcc-random-quote-machine-solution">Source
+                    Code</a></Credit>
             </Container>
 
         );
@@ -169,7 +204,5 @@ class App extends Component {
 }
 
 
-
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();
