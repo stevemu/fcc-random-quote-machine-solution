@@ -42,9 +42,13 @@ const SocialButton = styled.a`
   background-color: darkorange;
   font-size: 30px;
   border-radius: 5px;
+  
+  &:link, &:visited {
+    color: white;
+  }
 `;
 
-const NewQuoteButton = styled(SocialButton)`
+const NewQuoteButton = SocialButton.extend`
   width: 100px;
   display: flex;
   justify-content: center;
@@ -119,14 +123,24 @@ class App extends Component {
         const quote = quotes[this.state.index];
         const {text, by} = quote;
 
+        const twitterLink = `https://twitter.com/intent/tweet?text=${text} -- ${by}`;
+
         return (
             <Container>
                 <Box>
                     <Quote><QuoteLeft />{text}</Quote>
                     <Author>- {by}</Author>
                     <Social>
-                        <SocialButton style={{marginRight: "10px"}}><span className="typcn typcn-social-twitter"></span></SocialButton>
-                        <SocialButton style={{marginRight: "10px"}}><span className="typcn typcn-social-tumbler"></span></SocialButton>
+                        <SocialButton
+                            href={twitterLink}
+                            className={"twitter-share-button"}
+                            style={{marginRight: "10px"}}>
+                            <span className="typcn typcn-social-twitter"></span>
+                        </SocialButton>
+                        {/*<SocialButton*/}
+                            {/*style={{marginRight: "10px"}}>*/}
+                            {/*<span className="typcn typcn-social-tumbler"></span>*/}
+                        {/*</SocialButton>*/}
                     </Social>
                     <NewQuote onClick={this.newQuote}>
                         <NewQuoteButton>New quote</NewQuoteButton>
