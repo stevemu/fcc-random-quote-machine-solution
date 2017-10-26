@@ -18,6 +18,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: darkorange;
+  max-height: 100%;
+  min-height: 100vh;
+  padding: 20px;
 `;
 
 const Box = styled.div`
@@ -103,6 +107,10 @@ const quotes = [
     },
 ];
 
+const colors = [
+    "#6B19FF", "#CC7614", "#B26309"
+];
+
 const QuoteLeft = () => {
   return <i style={{marginRight: "10px"}} className="fa fa-quote-left" aria-hidden="true"></i>;
 };
@@ -126,11 +134,12 @@ class App extends Component {
     render() {
         const quote = quotes[this.state.index];
         const {text, by} = quote;
+        const color = colors[this.state.index];
 
         const twitterLink = `https://twitter.com/intent/tweet?text=${text} -- ${by}`;
 
         return (
-            <Container>
+            <Container style={{backgroundColor: color}}>
                 <Box>
                     <Quote><QuoteLeft />{text}</Quote>
                     <Author>- {by}</Author>
@@ -138,7 +147,7 @@ class App extends Component {
                         <SocialButton
                             href={twitterLink}
                             className={"twitter-share-button"}
-                            style={{marginRight: "10px"}}>
+                            style={{marginRight: "10px", backgroundColor: color}}>
                             <span className="typcn typcn-social-twitter"></span>
                         </SocialButton>
                         {/*<SocialButton*/}
@@ -146,8 +155,10 @@ class App extends Component {
                             {/*<span className="typcn typcn-social-tumbler"></span>*/}
                         {/*</SocialButton>*/}
                     </Social>
-                    <NewQuote onClick={this.newQuote}>
-                        <NewQuoteButton>New quote</NewQuoteButton>
+                    <NewQuote
+                        onClick={this.newQuote}
+                    >
+                        <NewQuoteButton style={{backgroundColor: color}}>New quote</NewQuoteButton>
                     </NewQuote>
                 </Box>
                 <Credit>By Steve Mu | <a href="https://github.com/stevemu/fcc-random-quote-machine-solution">Source Code</a></Credit>
